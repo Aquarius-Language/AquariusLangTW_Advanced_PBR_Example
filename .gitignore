@@ -1,0 +1,5 @@
+dist/
+aquarius*.png
+tools/cache/
+tools/build/
+node_modules/

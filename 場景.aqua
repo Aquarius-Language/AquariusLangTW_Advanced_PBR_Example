@@ -1,0 +1,44 @@
+# 場景與渲染均由星泉程式管理；主機只提供 WebGPU 與視窗能力。
+變數 檔案=匯入("Files");變數 序列化=匯入("Serialization");變數 模型=匯入("Models");變數 材質工具=匯入("PBR");變數 矩陣=匯入("GLM");
+變數 讀文字=函式(路徑){回傳 檔案.ReadAssetText("assets/"+路徑,"utf-8");};
+變數 建立=函式(畫面){
+    變數 畫布=畫面.createGraphics(畫面.width,畫面.height,"P3D","rgba16float");
+    變數 著色器=畫布.createShader(讀文字("pbr.vert.wgsl"),讀文字("pbr.frag.wgsl"));
+    變數 天空著色器=畫布.createShader(讀文字("sky.vert.wgsl"),讀文字("sky.frag.wgsl"));
+    變數 色調著色器=畫面.createShader(材質工具.VertexShader,讀文字("tonemap.frag.wgsl"));
+    畫布.beginDraw();
+    變數 紋理=函式(名稱,寬,高,格式,維度,層數){回傳 畫布.loadTexture("assets/baked/"+名稱+".gz",寬,高,格式,維度,層數);};
+    著色器.setTexture("albedoMap",紋理("albedo",4096,4096,"rgba8unorm-srgb","2d",13));
+    著色器.setTexture("normalMap",紋理("normal",4096,4096,"rgba8unorm","2d",13));
+    著色器.setTexture("metallicMap",紋理("metallic",4096,4096,"r8unorm","2d",13));
+    著色器.setTexture("roughnessMap",紋理("roughness",4096,4096,"r8unorm","2d",13));
+    變數 環境=紋理("environment",1024,1024,"rgba16float","cube",11);
+    著色器.setTexture("environmentMap",環境);天空著色器.setTexture("environmentMap",環境);
+    著色器.setTexture("irradianceMap",紋理("irradiance",32,32,"rgba16float","cube",1));
+    著色器.setTexture("brdfMap",紋理("brdf",256,256,"rgba16float","2d",1));
+    著色器.setTexture("tangentData",紋理("tangents",1024,197,"rgba16float","2d",1));
+    畫布.endDraw();
+    變數 頂點=序列化.ParseJson(讀文字("baked/mesh.json"));
+    變數 網格=材質工具.CreateMesh(畫布,{"ok":真,"vertices":頂點});
+    變數 天空=材質工具.CreateMesh(畫布,模型.LoadAssetOBJ("assets/original/meshes/skybox.obj"));
+    回傳 {"canvas":畫布,"shader":著色器,"skyShader":天空著色器,"toneShader":色調著色器,"mesh":網格,"sky":天空,"triangles":長度(頂點)/3};
+};
+變數 旋轉=函式(俯仰,偏航){回傳 矩陣.Multiply(矩陣.Rotate(俯仰*0.017453292519943295d,[1,0,0]),矩陣.Rotate(偏航*0.017453292519943295d,[0,1,0]));};
+變數 繪製=函式(畫面,場景,鏡頭,物體){
+    變數 畫布=場景["canvas"];
+    如果(畫布.width!=畫面.width || 畫布.height!=畫面.height){畫布.resize(畫面.width,畫面.height);}
+    # 原例將 45 直接傳給 GLM 的弧度投影函式；保持其實際投影。
+    變數 高縮放=畫面.cos(22.5d)/畫面.sin(22.5d);變數 寬縮放=高縮放*畫面.height/畫面.width;
+    變數 投影=[寬縮放,0,0,0,0,高縮放,0,0,0,0,-1001.0d/999.0d,-1,0,0,-2000.0d/999.0d,0];
+    變數 視角=旋轉(鏡頭["pitch"],鏡頭["yaw"]);
+    變數 視圖=矩陣.Multiply(矩陣.Translate([0,0,-鏡頭["distance"]]),視角);
+    變數 反視圖=矩陣.Inverse(視圖);變數 著色器=場景["shader"];
+    著色器.set("viewProjection",矩陣.Multiply(投影,視圖));著色器.set("sceneRotation",旋轉(物體["pitch"],物體["yaw"]));
+    著色器.set("eye",[反視圖[12],反視圖[13],反視圖[14],0]);
+    變數 光源欄位=["light0","light1","light2"];
+    迴圈(變數 i=0;i<3;i++){變數 亮度=0;如果(物體["lights"][i]){亮度=1;}著色器.set(光源欄位[i],[亮度,亮度,亮度,0]);}
+    場景["skyShader"].set("skyProjection",矩陣.Multiply(投影,視角));
+    畫布.beginDraw();畫布.background(0);畫布.noStroke();畫布.shader(場景["skyShader"]);畫布.shape(場景["sky"]);
+    畫布.shader(著色器);畫布.shape(場景["mesh"]);畫布.resetShader();畫布.endDraw();
+    畫面.shader(場景["toneShader"]);畫面.image(畫布,0,0,畫面.width,畫面.height);畫面.resetShader();
+};

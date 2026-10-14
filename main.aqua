@@ -1,0 +1,34 @@
+變數 畫面=匯入("Processing");變數 渲染=匯入("場景.aqua");
+變數 場景=0;變數 鏡頭={"pitch":0.0d,"yaw":0.0d,"distance":150.0d};變數 物體={"pitch":0.0d,"yaw":0.0d,"lights":[假,假,假]};
+變數 上次X=0;變數 上次Y=0;
+變數 按下X=0;變數 按下Y=0;變數 觸控旋轉模型=假;
+變數 行動操作=函式(){回傳 是Android() || (是網頁() && 畫面.width<760);};
+變數 設定=函式(){
+    畫面.size(1024,1024,"P2D","Physically Based Rendering — AquariusLang / WebGPU");
+    場景=渲染.建立(畫面);畫面.frameRate(60);
+    畫面.on("mousePressed",函式(){上次X=畫面.mouseX;上次Y=畫面.mouseY;按下X=畫面.mouseX;按下Y=畫面.mouseY;});
+    畫面.on("mouseDragged",函式(){
+        變數 目標=鏡頭;如果(畫面.mouseButton==1 || (行動操作() && 觸控旋轉模型)){目標=物體;}
+        目標["yaw"]=目標["yaw"]+畫面.mouseX-上次X;目標["pitch"]=目標["pitch"]+畫面.mouseY-上次Y;
+        上次X=畫面.mouseX;上次Y=畫面.mouseY;
+    });
+    畫面.on("mouseWheel",函式(){鏡頭["distance"]=鏡頭["distance"]-4.0d*畫面.wheelCount;});
+    畫面.on("mouseClicked",函式(){
+        如果(!行動操作() || 畫面.dist(按下X,按下Y,畫面.mouseX,畫面.mouseY)>6){回傳 0;}
+        如果(畫面.mouseY<畫面.height*0.25d){
+            變數 i=畫面.floor(畫面.mouseX*3/畫面.width);
+            如果(i>=0 && i<3){物體["lights"][i]=!物體["lights"][i];}
+        }否則如果(畫面.mouseY>畫面.height*0.8d){觸控旋轉模型=!觸控旋轉模型;}
+        否則如果(畫面.mouseX<畫面.width/2){鏡頭["distance"]=鏡頭["distance"]+4.0d;}
+        否則{鏡頭["distance"]=鏡頭["distance"]-4.0d;}
+    });
+    畫面.on("keyPressed",函式(){
+        變數 i=畫面.keyCode-290;
+        如果(i>=0 && i<3){物體["lights"][i]=!物體["lights"][i];印出("光源",i+1,"：",物體["lights"][i]);}
+        如果(畫面.key=="1" || 畫面.key=="2" || 畫面.key=="3"){
+            變數 j=畫面.keyCode-49;物體["lights"][j]=!物體["lights"][j];
+        }
+    });
+    印出("PBR 場景就緒：",場景["triangles"],"個三角形。左鍵旋轉鏡頭、右鍵旋轉模型、滾輪縮放、F1–F3 切換光源。");
+};
+畫面.run(設定,函式(){渲染.繪製(畫面,場景,鏡頭,物體);});

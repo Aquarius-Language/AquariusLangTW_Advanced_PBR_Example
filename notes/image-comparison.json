@@ -1,0 +1,22 @@
+{
+  "aquarius": {
+    "meanAbsoluteChannelError": 0.0992746353149414,
+    "p99": 1.0,
+    "fractionWithin5": 0.996514638264974
+  },
+  "aquarius-lit": {
+    "meanAbsoluteChannelError": 0.11645825703938802,
+    "p99": 1.0,
+    "fractionWithin5": 0.9958063761393229
+  },
+  "browser": {
+    "meanAbsoluteChannelError": 0.12412198384602864,
+    "p99": 1.0,
+    "fractionWithin5": 0.9954427083333334
+  },
+  "browser-lit": {
+    "meanAbsoluteChannelError": 0.14419937133789062,
+    "p99": 1.0,
+    "fractionWithin5": 0.9948256810506185
+  }
+}

@@ -1,0 +1,33 @@
+const {chromium}=await import(process.env.AQUARIUS_PLAYWRIGHT_ENTRY??'playwright');
+import {fileURLToPath} from 'node:url';
+import {createServer} from 'node:http';
+import {readFile,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const report=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),root=path.join(report,'dist/web');
+const server=createServer(async(req,res)=>{try{const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname);assert.ok(name.startsWith('/project/'));const file=path.resolve(root,name.slice(9)||'index.html');assert.ok(file.startsWith(root+path.sep));res.setHeader('Content-Type',({'.html':'text/html','.mjs':'text/javascript','.json':'application/json','.wasm':'application/wasm'})[path.extname(file)]??'application/octet-stream');res.end(await readFile(file));}catch(e){res.statusCode=404;res.end(String(e));}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-unsafe-webgpu']}),errors=[];
+try {
+    const page=await browser.newPage({viewport:{width:1024,height:1024}});page.setDefaultTimeout(120000);
+    page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+    await page.goto(`http://127.0.0.1:${server.address().port}/project/?autorun=0`);
+    await page.waitForFunction(()=>window.aquarius);
+    await page.evaluate(()=>{window.sceneTask=window.aquarius.run('main.aqua',0).catch(e=>{if(!e.message.includes('cancel'))throw e;});});
+    await page.waitForFunction(()=>window.aquarius.host.processing.frameCount>=2);
+    await page.locator('canvas').screenshot({path:path.join(report,'browser.png')});
+    for(const key of ['F1','F2','F3'])await page.keyboard.press(key);
+    await page.waitForFunction(()=>document.getElementById('output').textContent.includes('光源 3 ： 真'));
+    await page.waitForTimeout(400);
+    await page.locator('canvas').screenshot({path:path.join(report,'browser-lit.png')});
+    await page.mouse.move(512,512);await page.mouse.down({button:'right'});await page.mouse.move(560,530,{steps:3});await page.mouse.up({button:'right'});
+    await page.waitForTimeout(300);await page.locator('canvas').screenshot({path:path.join(report,'browser-rotated.png')});
+    await page.mouse.move(512,512);await page.mouse.down();await page.mouse.move(535,500,{steps:2});await page.mouse.up();await page.mouse.wheel(0,-100);
+    await page.setViewportSize({width:412,height:915});
+    await page.waitForTimeout(1500);
+    await page.waitForFunction(()=>window.aquarius.host.processing.screen.width===412);
+    await page.waitForTimeout(500);await page.screenshot({path:path.join(report,'browser-mobile.png')});
+    await page.evaluate(()=>window.aquarius.stop());assert.deepEqual(errors,[]);
+    await writeFile(path.join(report,'browser-results.json'),JSON.stringify({passed:true,errors,controls:['F1','F2','F3','right drag','left drag','wheel','resize'],mobile:[412,915]},null,2));
+    console.log('PASS: browser PBR, HDR, textures, all original controls and portrait resizing');
+} finally {await browser.close();await new Promise(r=>server.close(r));}

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "errors": [],
+  "controls": [
+    "F1",
+    "F2",
+    "F3",
+    "right drag",
+    "left drag",
+    "wheel",
+    "resize"
+  ],
+  "mobile": [
+    412,
+    915
+  ]
+}

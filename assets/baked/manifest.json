@@ -1,0 +1,46 @@
+{
+  "albedo": {
+    "bytes": 89478484,
+    "sha256": "c5ea6ecc4c79d8cff56b7755842addf1fb42af6b473ead59487c9c3afa86bc77"
+  },
+  "normal": {
+    "bytes": 89478484,
+    "sha256": "64608a871719153debf820f5e3b9e41aa085e07576fff391a17097604cfebd37"
+  },
+  "metallic": {
+    "bytes": 22369621,
+    "sha256": "a20aca6f847af0aa4dd87e1ef21534a3d7c9fe841f322a965b84b11e4fed2c6f"
+  },
+  "roughness": {
+    "bytes": 22369621,
+    "sha256": "ce2d8a822ed8146937328a723bf818e24ef50f4fd164f92cc9f9345b84d70cc0"
+  },
+  "environment": {
+    "bytes": 67108848,
+    "sha256": "4af592c2da46b00f206e2630e70da9013d682489ad148ebc61e9ec904343962e"
+  },
+  "irradiance": {
+    "bytes": 49152,
+    "sha256": "6e0916a47e3d295cb0f43efe861e7ef741f1c8e13c506997d999c59b501272f0"
+  },
+  "brdf": {
+    "bytes": 524288,
+    "sha256": "6def2f9e1f9b087ad3b8cd7c226ae3bc4e9a88cb7b2b35cd3e0ea55e5995924d"
+  },
+  "mesh": {
+    "vertices": 100629,
+    "triangles": 33543,
+    "min": [
+      -19.9931221,
+      -47.2087097,
+      -119.557281
+    ],
+    "max": [
+      12.5203171,
+      18.778801,
+      36.5488052
+    ],
+    "tangentWidth": 1024,
+    "tangentHeight": 197
+  }
+}

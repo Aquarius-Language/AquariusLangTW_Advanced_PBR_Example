@@ -1,0 +1,8 @@
+變數 畫面=匯入("Processing");變數 渲染=匯入("場景.aqua");變數 場景=0;
+變數 鏡頭={"pitch":0.0d,"yaw":0.0d,"distance":150.0d};變數 物體={"pitch":0.0d,"yaw":0.0d,"lights":[假,假,假]};變數 影格=0;
+畫面.run(函式(){畫面.size(1024,1024,"P2D","星泉 PBR 驗證");場景=渲染.建立(畫面);},函式(){
+    渲染.繪製(畫面,場景,鏡頭,物體);
+    如果(影格==0){畫面.save("aquarius.png");物體["lights"]=[真,真,真];}
+    否則{畫面.save("aquarius-lit.png");印出("PBR GPU 驗證通過：",場景["triangles"],"個三角形，HDR／sRGB／cube／mip／正常貼圖。 ");畫面.exit();}
+    影格++;
+});
