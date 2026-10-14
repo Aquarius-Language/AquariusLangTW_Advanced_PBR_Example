@@ -2,11 +2,7 @@
 
 使用星泉（AquariusLang）重現 Michał Siejak 的 Nadrin/PBR：Cerberus 模型、原始四張 4096×4096 材質圖、HDR 街景、三盞方向光、GGX 反射、irradiance、split-sum BRDF 及最後的 HDR 色調映射。場景、輸入、矩陣、資源綁定與渲染流程皆由 `.aqua` 管理，shader 使用共用 WGSL。
 
-先將本次更新後的 `aqua` 資料夾加入 PATH。開發機上的新編譯器位於 `C:\OfficialProjects\AquariusLangTW\dist\pbr-compiler`。
-
 ```powershell
-# 本機終端機暫時加入 PATH，無須修改全域設定
-$env:PATH = 'C:\OfficialProjects\AquariusLangTW\dist\pbr-compiler;' + $env:PATH
 ./建置.ps1
 aqua run dist/PBR.wasm
 
