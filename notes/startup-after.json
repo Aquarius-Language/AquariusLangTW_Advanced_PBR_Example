@@ -1,0 +1,420 @@
+{
+  "firstFramesMs": 1918.2000000001863,
+  "sceneMs": 1362.6000000000931,
+  "calls": {
+    "Processing.Canvas.loadTexture": {
+      "count": 8,
+      "ms": 1018.5999999996275
+    },
+    "Processing.size": {
+      "count": 1,
+      "ms": 143.30000000004657
+    },
+    "Processing.Canvas.shape": {
+      "count": 4,
+      "ms": 89.30000000004657
+    },
+    "Processing.Canvas.loadMesh": {
+      "count": 1,
+      "ms": 28.699999999953434
+    },
+    "Processing.Canvas.createShader": {
+      "count": 3,
+      "ms": 8.899999999906868
+    },
+    ".print": {
+      "count": 1,
+      "ms": 1.1000000000931323
+    },
+    "Processing.Canvas.background": {
+      "count": 2,
+      "ms": 1
+    },
+    "Processing.Canvas.image": {
+      "count": 2,
+      "ms": 0.8000000000465661
+    },
+    "Processing.createGraphics": {
+      "count": 1,
+      "ms": 0.6000000000931323
+    },
+    "Files.ReadAssetText": {
+      "count": 6,
+      "ms": 0.5
+    },
+    "Processing.Canvas.createShape": {
+      "count": 1,
+      "ms": 0.20000000018626451
+    },
+    "PShape.vertex": {
+      "count": 36,
+      "ms": 0.10000000009313226
+    },
+    "PShape.getVertexCount": {
+      "count": 1,
+      "ms": 0.10000000009313226
+    },
+    "Processing.on": {
+      "count": 5,
+      "ms": 0.10000000009313226
+    },
+    "Processing.cos": {
+      "count": 2,
+      "ms": 0.10000000009313226
+    },
+    "GLM.Multiply": {
+      "count": 10,
+      "ms": 0.10000000009313226
+    },
+    "PShader.set": {
+      "count": 14,
+      "ms": 0.10000000009313226
+    },
+    "Processing.Canvas.resetShader": {
+      "count": 4,
+      "ms": 0.10000000009313226
+    },
+    "PShape.fill": {
+      "count": 1,
+      "ms": 0.09999999986030161
+    },
+    "Processing.Canvas.shader": {
+      "count": 6,
+      "ms": 0.09999999986030161
+    },
+    "Processing.Canvas.beginDraw": {
+      "count": 3,
+      "ms": 0
+    },
+    "PShader.setTexture": {
+      "count": 9,
+      "ms": 0
+    },
+    "Processing.Canvas.endDraw": {
+      "count": 3,
+      "ms": 0
+    },
+    "PShape.noStroke": {
+      "count": 1,
+      "ms": 0
+    },
+    "PShape.beginShape": {
+      "count": 1,
+      "ms": 0
+    },
+    "PShape.setNormal": {
+      "count": 36,
+      "ms": 0
+    },
+    "PShape.endShape": {
+      "count": 1,
+      "ms": 0
+    },
+    "Processing.frameRate": {
+      "count": 1,
+      "ms": 0
+    },
+    "Processing.sin": {
+      "count": 2,
+      "ms": 0
+    },
+    "GLM.Rotate": {
+      "count": 8,
+      "ms": 0
+    }
+  },
+  "resources": [
+    {
+      "name": "/project/app.mjs",
+      "bytes": 1948,
+      "ms": 6.400000000139698
+    },
+    {
+      "name": "/project/host.mjs",
+      "bytes": 4854,
+      "ms": 3.199999999953434
+    },
+    {
+      "name": "/project/values.mjs",
+      "bytes": 2319,
+      "ms": 3.199999999953434
+    },
+    {
+      "name": "/project/startup.mjs",
+      "bytes": 1409,
+      "ms": 3.300000000046566
+    },
+    {
+      "name": "/project/wgpu.mjs",
+      "bytes": 17072,
+      "ms": 3.5
+    },
+    {
+      "name": "/project/physics.mjs",
+      "bytes": 606,
+      "ms": 3.199999999953434
+    },
+    {
+      "name": "/project/surface.mjs",
+      "bytes": 1508,
+      "ms": 3.699999999953434
+    },
+    {
+      "name": "/project/application.mjs",
+      "bytes": 836,
+      "ms": 4.100000000093132
+    },
+    {
+      "name": "/project/legacy.mjs",
+      "bytes": 6187,
+      "ms": 4.199999999953434
+    },
+    {
+      "name": "/project/audio.mjs",
+      "bytes": 5373,
+      "ms": 4.300000000046566
+    },
+    {
+      "name": "/project/webcam.mjs",
+      "bytes": 11191,
+      "ms": 4.600000000093132
+    },
+    {
+      "name": "/project/onnx.mjs",
+      "bytes": 5723,
+      "ms": 4.7000000001862645
+    },
+    {
+      "name": "/project/mediapipe.mjs",
+      "bytes": 6413,
+      "ms": 4.900000000139698
+    },
+    {
+      "name": "/project/processing-input.mjs",
+      "bytes": 4043,
+      "ms": 5.5
+    },
+    {
+      "name": "/project/capability-host.mjs",
+      "bytes": 12695,
+      "ms": 5.5
+    },
+    {
+      "name": "/project/vendor-jolt.mjs",
+      "bytes": 1112769,
+      "ms": 9.5
+    },
+    {
+      "name": "/project/physics-core.mjs",
+      "bytes": 5426,
+      "ms": 4.600000000093132
+    },
+    {
+      "name": "/project/surface-size.mjs",
+      "bytes": 580,
+      "ms": 3.8999999999068677
+    },
+    {
+      "name": "/project/shader-layout.mjs",
+      "bytes": 979,
+      "ms": 4.399999999906868
+    },
+    {
+      "name": "/project/vendor-gl-matrix.mjs",
+      "bytes": 53867,
+      "ms": 4.800000000046566
+    },
+    {
+      "name": "/project/wgpu-textures.mjs",
+      "bytes": 4639,
+      "ms": 5.099999999860302
+    },
+    {
+      "name": "/project/wgpu-uniforms.mjs",
+      "bytes": 184,
+      "ms": 6.699999999953434
+    },
+    {
+      "name": "/project/application-images.mjs",
+      "bytes": 2025,
+      "ms": 7.800000000046566
+    },
+    {
+      "name": "/project/application-files.mjs",
+      "bytes": 17041,
+      "ms": 7.600000000093132
+    },
+    {
+      "name": "/project/application-runtime.mjs",
+      "bytes": 23023,
+      "ms": 6.800000000046566
+    },
+    {
+      "name": "/project/application-window.mjs",
+      "bytes": 8326,
+      "ms": 9.199999999953434
+    },
+    {
+      "name": "/project/application-services.mjs",
+      "bytes": 14241,
+      "ms": 7.899999999906868
+    },
+    {
+      "name": "/project/audio-core.mjs",
+      "bytes": 3129,
+      "ms": 8.800000000046566
+    },
+    {
+      "name": "/project/audio-registration.mjs",
+      "bytes": 2852,
+      "ms": 10.200000000186265
+    },
+    {
+      "name": "/project/onnx-registration.mjs",
+      "bytes": 5357,
+      "ms": 10.5
+    },
+    {
+      "name": "/project/array-library.mjs",
+      "bytes": 843,
+      "ms": 10.5
+    },
+    {
+      "name": "/project/wasm-host.mjs",
+      "bytes": 18548,
+      "ms": 11
+    },
+    {
+      "name": "/project/processing.mjs",
+      "bytes": 36022,
+      "ms": 11.199999999953434
+    },
+    {
+      "name": "/project/package-paths.mjs",
+      "bytes": 1659,
+      "ms": 11.5
+    },
+    {
+      "name": "/project/vendor-fflate.mjs",
+      "bytes": 32196,
+      "ms": 2.4000000001396984
+    },
+    {
+      "name": "/project/application-core.mjs",
+      "bytes": 13016,
+      "ms": 3.1000000000931323
+    },
+    {
+      "name": "/project/application-serialization.mjs",
+      "bytes": 6626,
+      "ms": 2.300000000046566
+    },
+    {
+      "name": "/project/wasm-manifest.mjs",
+      "bytes": 4936,
+      "ms": 2.3999999999068677
+    },
+    {
+      "name": "/project/vendor-earcut.mjs",
+      "bytes": 6624,
+      "ms": 2.4000000001396984
+    },
+    {
+      "name": "/project/mesh-data.mjs",
+      "bytes": 991,
+      "ms": 2.1000000000931323
+    },
+    {
+      "name": "/project/program.json",
+      "bytes": 134194,
+      "ms": 4.800000000046566
+    },
+    {
+      "name": "/project/program.wasm",
+      "bytes": 737145,
+      "ms": 6.800000000046566
+    },
+    {
+      "name": "/project/asset-a83019fd207002a3d5b1c87a540df400d1c3dd5e5e3d393db5d4e33aca5d56f4.bin",
+      "bytes": 221198,
+      "ms": 5.300000000046566
+    },
+    {
+      "name": "/project/asset-eba47241b41a81d30501e8908032f4d414ecb2d73029813c79bd3269471c2f16.bin",
+      "bytes": 27258381,
+      "ms": 158.5
+    },
+    {
+      "name": "/project/asset-e67398109fd4de45f2d7cdf65f0a4d1efac21b39d50ddb6bccdfb3a456df2500.bin",
+      "bytes": 33925,
+      "ms": 4.7999999998137355
+    },
+    {
+      "name": "/project/asset-424c193c157b1a9a3af9348bfeb259c0ec927345943935be7153c1096dd6962d.bin",
+      "bytes": 45004416,
+      "ms": 191.5
+    },
+    {
+      "name": "/project/asset-780243a984e4d85283e4d6fdfd2e7d4ceae37ec238077c5ac9c059e61edbb8f3.bin",
+      "bytes": 3220144,
+      "ms": 16.200000000186265
+    },
+    {
+      "name": "/project/asset-16ad487e838c9a720ca08945659d391cf75ee65ced9273852680672c01d8a0ac.bin",
+      "bytes": 10043574,
+      "ms": 53.5
+    },
+    {
+      "name": "/project/asset-16d40a77131b65bee37e0875caf715ebe05a3886b23a0d5e791f4d7937c997c3.bin",
+      "bytes": 37712188,
+      "ms": 177.39999999990687
+    },
+    {
+      "name": "/project/asset-3efe09adf0f041bfba729bdf107dc682faa1d0e15014bc2258d0aee5bcf33e3b.bin",
+      "bytes": 15947770,
+      "ms": 47.699999999953434
+    },
+    {
+      "name": "/project/asset-65521be80137fd847cb1c981e0bd8fed9c2c0dac921e983dca23a1edb2b120c0.bin",
+      "bytes": 380899,
+      "ms": 3.199999999953434
+    },
+    {
+      "name": "/project/asset-7d90f1892d3f32a641851d9690970217f51334c3f0566b6de70a9346a84c9c71.bin",
+      "bytes": 606,
+      "ms": 1.4000000001396984
+    },
+    {
+      "name": "/project/asset-7b12e3f73d1c8762527c47f5156b8880700533ac909b872ef2040b7e2c82da20.bin",
+      "bytes": 3036,
+      "ms": 1.3000000000465661
+    },
+    {
+      "name": "/project/asset-2e4aac9947dc617544d49e346f2673c5a7826e42d633ebf0a7bfcb7c8a731ce2.bin",
+      "bytes": 1349,
+      "ms": 1.1999999999534339
+    },
+    {
+      "name": "/project/asset-26ce51088901ba6710498df5fd05deecfa288fa955c76f8358cf75d5432cf9bc.bin",
+      "bytes": 372,
+      "ms": 2.300000000046566
+    },
+    {
+      "name": "/project/asset-38a056575681ba9c26bc73949ffc02e9ca0b687d555207b459b436eb4903f57a.bin",
+      "bytes": 377,
+      "ms": 2
+    },
+    {
+      "name": "/project/asset-b40326dce6207308eed3ff2edd20efa44769bf94913363bd9ae42920e7e3fc38.bin",
+      "bytes": 452,
+      "ms": 2
+    }
+  ],
+  "output": "PBR 場景就緒： 33543 個三角形。左鍵旋轉鏡頭、右鍵旋轉模型、滾輪縮放、F1–F3 切換光源。\n",
+  "memory": {
+    "used": 426356521,
+    "total": 499636905
+  },
+  "readyMs": 553.7000000001863,
+  "errors": []
+}

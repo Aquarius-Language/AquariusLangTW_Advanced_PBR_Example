@@ -1,0 +1,14 @@
+{
+  "device": "emulator-5554",
+  "log": [
+    "--------- beginning of main",
+    "         1792030763.915  2347  2347 I Aquarius: AQUARIUS_BENCHMARK_START",
+    "         1792030767.779  2357  2377 I Aquarius: PBR 場景就緒： 33543 個三角形。左鍵旋轉鏡頭、右鍵旋轉模型、滾輪縮放、F1–F3 切換光源。",
+    "         1792030772.685  2357  2377 I Aquarius:",
+    "         1792030772.882  2357  2377 I Aquarius: AQUARIUS_ANDROID_OK"
+  ],
+  "startEpoch": 1792030763.915,
+  "readySeconds": 3.864000082015991,
+  "threeFramesSeconds": 8.967000007629395,
+  "passed": true
+}

@@ -1,5 +1,5 @@
 # 場景與渲染均由星泉程式管理；主機只提供 WebGPU 與視窗能力。
-變數 檔案=匯入("Files");變數 序列化=匯入("Serialization");變數 模型=匯入("Models");變數 材質工具=匯入("PBR");變數 矩陣=匯入("GLM");
+變數 檔案=匯入("Files");變數 模型=匯入("Models");變數 材質工具=匯入("PBR");變數 矩陣=匯入("GLM");
 變數 讀文字=函式(路徑){回傳 檔案.ReadAssetText("assets/"+路徑,"utf-8");};
 變數 建立=函式(畫面){
     變數 畫布=畫面.createGraphics(畫面.width,畫面.height,"P3D","rgba16float");
@@ -18,10 +18,9 @@
     著色器.setTexture("brdfMap",紋理("brdf",256,256,"rgba16float","2d",1));
     著色器.setTexture("tangentData",紋理("tangents",1024,197,"rgba16float","2d",1));
     畫布.endDraw();
-    變數 頂點=序列化.ParseJson(讀文字("baked/mesh.json"));
-    變數 網格=材質工具.CreateMesh(畫布,{"ok":真,"vertices":頂點});
+    變數 網格=畫布.loadMesh("assets/baked/mesh.aqmesh");
     變數 天空=材質工具.CreateMesh(畫布,模型.LoadAssetOBJ("assets/original/meshes/skybox.obj"));
-    回傳 {"canvas":畫布,"shader":著色器,"skyShader":天空著色器,"toneShader":色調著色器,"mesh":網格,"sky":天空,"triangles":長度(頂點)/3};
+    回傳 {"canvas":畫布,"shader":著色器,"skyShader":天空著色器,"toneShader":色調著色器,"mesh":網格,"sky":天空,"triangles":網格.getVertexCount()/3};
 };
 變數 旋轉=函式(俯仰,偏航){回傳 矩陣.Multiply(矩陣.Rotate(俯仰*0.017453292519943295d,[1,0,0]),矩陣.Rotate(偏航*0.017453292519943295d,[0,1,0]));};
 變數 繪製=函式(畫面,場景,鏡頭,物體){

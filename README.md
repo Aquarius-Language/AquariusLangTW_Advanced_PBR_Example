@@ -11,6 +11,9 @@ aqua run dist/PBR.wasm
 ./建置.ps1 -Target windows -驗證
 ./建置.ps1 -Target android
 ./建置.ps1 -Target apk
+
+# 指定已更新的語言編譯器（預設優先使用同層 AquariusLangTW 的 Release 建置）
+./建置.ps1 -Target web -Compiler ../AquariusLangTW/AquariusCli/bin/Release/net8.0/aqua.exe
 ```
 
 預設 `all` 產生封裝 Wasm、Windows x64 EXE、靜態網站及新的 Android Studio / Gradle 專案。APK 建置另需 JDK 17/21、Android SDK Platform 36、Build Tools 35.0.0，並設定 `JAVA_HOME`、`ANDROID_HOME`。Android 包含 arm64-v8a 與 x86_64 原生 Vulkan 後端，最低 API 29。這四種是 AquariusLang 目前已註冊的 build targets。
@@ -24,6 +27,10 @@ Android 與窄版網頁可直接觸控：拖曳旋轉；點畫面最下方 20% �
 `assets/original` 完整保留 supplied FBX、OBJ、PNG、HDR。`assets/baked` 是從這些資料以原例的 Assimp flags 與 OpenGL shaders 產生的跨平台資料：33,543 個三角形、原始 mip chains、1024 cube 環境、32 cube irradiance、256 BRDF LUT。切線／副切線採 half float 儲存於具名頂點紋理，保留原例的切線空間；幾何、UV、材質與光照不替換為近似模型。
 
 編譯包只包含實際使用的烘焙資產、WGSL 與 skybox OBJ，避免攜帶重複的來源圖片。已提供的 gzip 資料在執行時以相同 core 契約載入，不會於啟動時重新烘焙。`tools/bake.cpp`、`tools/CMakeLists.txt` 與 `tools/pack-assets.py` 保留重建方式；重烘焙需原 PBR checkout、Visual Studio C++、CMake、OpenGL 4.5、NumPy 與 Pillow。
+
+載入使用新的 `Processing.loadMesh` 二進位網格 API，須搭配本次已更新的 AquariusLangTW 編譯器。`mesh.json` 保留作為烘焙資料；執行包只帶 `mesh.aqmesh`，可用 `python tools/pack-mesh.py` 從 JSON 重建，不需要 NumPy 或 Pillow。頂點順序、33,543 個三角形、切線索引與材質解析度皆保留。
+
+網站把資產以獨立 binary 檔案部署，最多四個下載同時進行，並同時編譯精簡 Wasm；不再於 JSON 與 Wasm 重複攜帶 base64 圖片。瀏覽器以原生 gzip 解壓；Android 直接把原生解壓結果上傳至 GPU，省去大型紋理通過 V8 的搬移。啟動量測可執行 `npm run profile:startup`，Android 可用 `python tools/profile-android.py notes/startup-android.json --apk dist/PBR.apk`。原因與實測見 `載入效能.md`。
 
 原例程式碼授權見 `PBR-LICENSE.txt`。Cerberus 由 Andrew Maximov 創作；HDR 由 Bob Groothuis 創作，源於 HDRLabs sIBL archive，原專案標示 CC-BY-NC-SA 3.0。資產來源與各自授權資訊見 `REFERENCE-README.md`；程式碼的 MIT 授權不取代資產的授權。
 

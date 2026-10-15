@@ -2,6 +2,6 @@
   "name": "aquariuslangtw-pbr",
   "private": true,
   "type": "module",
-  "scripts": { "test:browser": "node tools/verify-browser.mjs" },
+  "scripts": { "test:browser": "node tools/verify-browser.mjs", "profile:startup": "node tools/profile-startup.mjs" },
   "devDependencies": { "playwright": "1.58.2" }
 }

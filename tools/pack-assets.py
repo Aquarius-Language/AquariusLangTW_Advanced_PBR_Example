@@ -3,6 +3,8 @@ import argparse,gzip,json,hashlib,shutil
 from pathlib import Path
 import numpy as np
 from PIL import Image
+from importlib.util import spec_from_file_location, module_from_spec
+spec=spec_from_file_location('pack_mesh',Path(__file__).with_name('pack-mesh.py'));mesh_packer=module_from_spec(spec);spec.loader.exec_module(mesh_packer)
 p=argparse.ArgumentParser();p.add_argument('raw',type=Path);p.add_argument('project',type=Path);p.add_argument('--source',type=Path,default=Path('C:/GitClonedProjects/PBR'));args=p.parse_args()
 destination=args.project/'assets'/'baked';destination.mkdir(parents=True,exist_ok=True)
 manifest={}
@@ -14,6 +16,7 @@ for name in ['albedo','normal','metallic','roughness','environment','irradiance'
     manifest[name]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
     print(name,len(data),flush=True)
 vertices=json.loads((args.raw/'mesh.json').read_text());(destination/'mesh.json').write_text(json.dumps(vertices,separators=(',',':')),encoding='utf-8')
+(destination/'mesh.aqmesh').write_bytes(mesh_packer.pack_mesh(vertices))
 tangents=np.fromfile(args.raw/'tangents.f32',dtype='<f4').reshape(-1,4);width=1024;height=(len(tangents)+width-1)//width
 packed=np.zeros((height*width,4),dtype='<f2');packed[:len(tangents)]=tangents
 (destination/'tangents.gz').write_bytes(gzip.compress(packed.tobytes(),compresslevel=6,mtime=0))

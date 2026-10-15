@@ -4,7 +4,7 @@ import {createServer} from 'node:http';
 import {readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-const report=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),root=path.join(report,'dist/web');
+const project=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),report=path.join(project,'notes'),root=path.resolve(process.env.AQUARIUS_PBR_WEB??path.join(project,'dist/web'));
 const server=createServer(async(req,res)=>{try{const name=decodeURIComponent(new URL(req.url,'http://localhost').pathname);assert.ok(name.startsWith('/project/'));const file=path.resolve(root,name.slice(9)||'index.html');assert.ok(file.startsWith(root+path.sep));res.setHeader('Content-Type',({'.html':'text/html','.mjs':'text/javascript','.json':'application/json','.wasm':'application/wasm'})[path.extname(file)]??'application/octet-stream');res.end(await readFile(file));}catch(e){res.statusCode=404;res.end(String(e));}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-unsafe-webgpu']}),errors=[];
